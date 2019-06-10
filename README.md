@@ -1,0 +1,1 @@
+This program will be able to retrieve events from apple calander and add them to the google calander using APIs
