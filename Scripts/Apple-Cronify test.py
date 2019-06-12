@@ -2,7 +2,7 @@ import pycronofy
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
-cronofy = pycronofy.Client(access_token="xgoU_7FW_u1-z_x6uHdoG1l0v8KSciuK")
+cronofy = pycronofy.Client(access_token="1pghMu9Cll9dPcXyH-Eq8wi_u3ppc3i0")
 
 event = {
     'calendar_id': "cal_XP9@Yw7C@wC-6Bjo_xpI@DzAnyq6nxaM9bicguw",
@@ -19,4 +19,4 @@ event = {
 
 
 
-cronofy.upsert_event(calendar_id='cal_XP9@Yw7C@wC-6Bjo_xpI@DzAnyq6nxaM9bicguw', event=event)
+print(cronofy.read_events().all())

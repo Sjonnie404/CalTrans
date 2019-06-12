@@ -12,6 +12,12 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import os
 
+
+
+
+
+
+
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
@@ -41,33 +47,32 @@ def main():
 
     service = build('calendar', 'v3', credentials=creds)
 
-    event = {
-        'summary': 'Test_05',
-        'location': '',
-        'description': 'Testing all the stuf',
-        'start': {
-            'dateTime': '2019-06-10T09:00:00',  #YYY-mm-dd than 'T' than hh:mm:ss than - than hh:mm last is duration see https://tools.ietf.org/html/rfc3339#section-5.8
-            'timeZone': 'Europe/Amsterdam',
-        },
-        'end': {
-            'dateTime': '2019-06-10T17:00:00',
-            'timeZone': 'Europe/Amsterdam',
-        },
-    }
-
-    event = service.events().insert(calendarId='primary', body=event).execute()
-    print
-    'Event created: %s' % (event.get('htmlLink'))
+    # event = {
+    #     'summary': 'Test_05',
+    #     'location': '',
+    #     'description': 'Testing all the stuf',
+    #     'start': {
+    #         'dateTime': '2019-06-10T09:00:00',  #YYY-mm-dd than 'T' than hh:mm:ss than - than hh:mm last is duration see https://tools.ietf.org/html/rfc3339#section-5.8
+    #         'timeZone': 'Europe/Amsterdam',
+    #     },
+    #     'end': {
+    #         'dateTime': '2019-06-10T17:00:00',
+    #         'timeZone': 'Europe/Amsterdam',
+    #     },
+    # }
+    #
+    # event = service.events().insert(calendarId='primary', body=event).execute()
+    # print('Event created: %s' % (event.get('htmlLink')))
 
 
     #
-    # # Call the Calendar API
-    # now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-    # print('Getting the upcoming 10 events')
-    # events_result = service.events().list(calendarId='primary', timeMin=now,
-    #                                     maxResults=1, singleEvents=True,
-    #                                     orderBy='startTime').execute()
-    # print(events_result)
+    # Call the Calendar API
+    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+    print('Getting the upcoming 1 events')
+    events_result = service.events().list(calendarId='primary', timeMin=now,
+                                        maxResults=1, singleEvents=True,
+                                        orderBy='startTime').execute()
+    print(events_result)
     # print("\n~~~~~~~~~~~~~~~~~~~~~\n")
     #
     # service
