@@ -2,12 +2,18 @@
 __Author__ = "Shane Ian Pullens"
 __Version__ = 1.0
 
-# TODO: write readme on repo
+# TODO: Fix Google's warning
 # TODO: Add documentation
 # TODO: Remove the Cronify wrapper and use the core icloud API
 # TODO: !!Look for a way to not hard copy paste whole calendar but obly add new events and edit changed events!!
 # TODO: Check try excepts
 # TODO: Look for deploy possibilities [phone app?, web app, Compiler?]
+# TODO: Fix Bug: Apple now takes whole day, whilst google takes exact time. (or maybe the other way around)
+# TODO: Beschrijving:Check if ID changes when info is changed (changed note, changes time & change date)  For both Apple & Google
+#
+# TODO Newer version: controller for differences in Timezone
+#
+# TODO Method: checkChanges: Save list of event IDs, if there are new id's in the new fetched list update. Update the lists, else go further
 
 ##################################################################
 
