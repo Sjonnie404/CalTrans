@@ -1,0 +1,29 @@
+Normal output:
+Etag event:	    "p32ocfl6bvvne40g"
+Etag item:	    "3121444572252000"
+iCalUID item:	 54knkaf4ualmpcg3b6gi6ail2g@google.com
+id item:         54knkaf4ualmpcg3b6gi6ail2g
+
+Changed time:
+Etag event:	    "p3349fdv7vvne40g"
+Etag item:	    "3121444688730000"
+iCalUID item:	 54knkaf4ualmpcg3b6gi6ail2g@google.com
+id item:        54knkaf4ualmpcg3b6gi6ail2g
+
+Changed date:
+Etag event:		 "p3248v64lg3nu40g"
+Etag item:		 "3121444880650000"
+iCalUID item:	 54knkaf4ualmpcg3b6gi6ail2g@google.com
+id item:		 54knkaf4ualmpcg3b6gi6ail2g
+
+Changed Title:
+Etag event:		 "p33gdfpd3g3nu40g"
+Etag item:		 "3121444941912000"
+iCalUID item:	 54knkaf4ualmpcg3b6gi6ail2g@google.com
+id item:		 54knkaf4ualmpcg3b6gi6ail2g
+
+Changed note:
+Etag event:		 "p33ke5q5jg3nu40g"
+Etag item:		 "3121445009122000"
+iCalUID item:	 54knkaf4ualmpcg3b6gi6ail2g@google.com
+id item:		 54knkaf4ualmpcg3b6gi6ail2g
