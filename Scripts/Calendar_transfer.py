@@ -212,21 +212,21 @@ def googleAdd(eventList, googleAPI):
 
     print("Successfully imported events!")
 
-def Testing(googleAPI, appleAPI):
-    now = datetime.datetime.utcnow().isoformat() + 'Z'
-
-    event = googleAPI.events().list(calendarId='primary', timeMin=now,
-                            maxResults=1, singleEvents=True,
-                            orderBy='startTime').execute()
-    pp.pprint(event)
-    print()
-
-
-    # Learned that event in this case is the calendar and the item is a event in the calendar, needs further investigation with multiple events!!
-    print("Etag event:\t\t", event['etag'])
-    print("Etag item:\t\t", event['items'][0]['etag'])
-    print("iCalUID item:\t", event['items'][0]['iCalUID'])
-    print("id item:\t\t", event['items'][0]['id'])
+# def Testing(googleAPI, appleAPI):
+#     now = datetime.datetime.utcnow().isoformat() + 'Z'
+#
+#     calender = googleAPI.events().list(calendarId='primary', timeMin=now,
+#                             maxResults=2, singleEvents=True,
+#                             orderBy='startTime').execute()
+#     pp.pprint(calender)
+#     print()
+#
+#     for event in calender.get('items'):
+#         # Learned that event in this case is the calendar and the item is a event in the calendar, needs further investigation with multiple events!!
+#         print("Etag calendar:\t", calender['etag'])
+#         print("Etag event:\t\t", event['etag'])
+#         print("iCalUID event:\t", event['iCalUID'])
+#         print("id event:\t\t", event['id'])
 
 
 def main():
@@ -235,12 +235,12 @@ def main():
     """
     apis = getCredentials()  # Checks credentials of user
     checked_apis = conCheck(apis[0], apis[1])  # Check if google and apple connection are working, else throw exception
-    print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~` Testing Zone ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
-    Testing(apis[0], apis[1])
-    #googlePrep(checked_apis[0])  # Connects to google and deletes all current events
-    #events = appleExtract(checked_apis[1])  # Connect to apple and extracts all upcoming events
-    #eventList = ApptoGo(events)  # Converts Google Json to Apple Json format
-    #googleAdd(eventList, checked_apis[0])  # Post all google events in calendar
+   # print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~` Testing Zone ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+    #Testing(apis[0], apis[1])
+    googlePrep(checked_apis[0])  # Connects to google and deletes all current events
+    events = appleExtract(checked_apis[1])  # Connect to apple and extracts all upcoming events
+    eventList = ApptoGo(events)  # Converts Google Json to Apple Json format
+    googleAdd(eventList, checked_apis[0])  # Post all google events in calendar
 
 
 if __name__ == '__main__':
