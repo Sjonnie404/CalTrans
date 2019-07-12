@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CalTrans.iml" filepath="$PROJECT_DIR$/.idea/CalTrans.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Kivy_app/.idea/Kivy_app.iml" filepath="$PROJECT_DIR$/../Kivy_app/.idea/Kivy_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../umi_igx/.idea/umi_igx.iml" filepath="$PROJECT_DIR$/../umi_igx/.idea/umi_igx.iml" />
     </modules>
   </component>
 </project>

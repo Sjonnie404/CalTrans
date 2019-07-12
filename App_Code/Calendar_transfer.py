@@ -36,12 +36,11 @@ pp = pprint.PrettyPrinter(indent=4)
 SCOPES = ['https://www.googleapis.com/auth/calendar']  # this gives the correct rights to edit file for google API
 
 
-def getCredentials():
+def googleAPISetup():
     """ This method checks if the user had logged into google calendar and apple icloud, if not it prompts the user and
         and saves the credentials.
         :param: None
         :return: Google API object
-        :return: Apple API object
         """
 
     #  Google part
@@ -70,36 +69,56 @@ def getCredentials():
     except:
         print("Something went wrong with authenticating Google")
     print("Google authenticated succesfully!\n")
+    return googleAPI
 
-    while True:
-        if os.path.exists('Data/AppleToken.txt'):  # Checks if the user has added the cronify api token
-            AppleCreds = open('Data/AppleToken.txt', 'r')
-            apple_token = AppleCreds.readline()
-            break
-        else:  # If file doesn't exist ask the user for the token and save it in Data/AppleToken.txt and check again
-            AppleCreds = open('Data/AppleToken.txt', 'w')
-            print("Acces token? --> See readme!")
-            AppleCreds.write(str(input("Please paste your access token string here and press enter.\n")))
-            AppleCreds.close()
-            print("retrying")
+
+def appleAPISetup(key):
+    """ This method checks if the user had logged into google calendar and apple icloud, if not it prompts the user and
+        and saves the credentials.
+        :param: None
+        :return: Apple API object
+        """
+    key = key.text
+    AppleCreds = open('Data/AppleToken.txt', 'w')
+    AppleCreds.write(key)
+    print(key)
+    AppleCreds.close()
+    apple_token = key
 
     print("Authenticating Apple API")  # Test if the Apple API doesn't trow an error
-    try:
-        appleAPI = pycronofy.Client(access_token=apple_token)  # Generates cronofy (apple) API object
-    except:
-        print("Something went wrong with authenticating Apple")
+
+    appleAPI = pycronofy.Client(access_token=apple_token)  # Generates cronofy (apple) API object
+
     print("Apple authenticated succesfully!\n")
 
-    return googleAPI, appleAPI
+    return appleAPI
 
 
-def conCheck(googleAPI, appleAPI):
+def AppleConCheck(appleAPI):
+    """     This method (Connection check) checks if both APIs gen retrieve data from them before doing any
+            other operations
+    :param appleAPI:  Apple API object
+    :return: Checked Apple API object
+    """
+    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+
+    print("Testing Apple API connection...")
+    try:
+        # Fetches a list of all the calendar events
+        appleAPI.read_events().all()
+    except:
+        print("An error occurred whilst connecting to the Apple API!")
+        exit(0)  # if the API doesn't work exit the program
+    print("Apple API connection established!\n")
+
+    return appleAPI
+
+
+def GoogleConCheck(googleAPI):
     """     This method (Connection check) checks if both APIs gen retrieve data from them before doing any
             other operations
     :param googleAPI: Google API object
-    :param appleAPI:  Apple API object
     :return: Checked Google API object
-    :return: Checked Apple API object
     """
     now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
 
@@ -114,16 +133,7 @@ def conCheck(googleAPI, appleAPI):
         exit(0)  # if the API doesn't work exit the program
     print("Google API connection established!\n")
 
-    print("Testing Apple API connection...")
-    try:
-        # Fetches a list of all the calendar events
-        appleAPI.read_events().all()
-    except:
-        print("An error occurred whilst connecting to the Apple API!")
-        exit(0)  # if the API doesn't work exit the program
-    print("Apple API connection established!\n")
-
-    return googleAPI, appleAPI
+    return googleAPI
 
 
 def googlePrep(googleAPI):
@@ -233,10 +243,11 @@ def main():
     """ Main Method
     :return: None
     """
-    apis = getCredentials()  # Checks credentials of user
-    checked_apis = conCheck(apis[0], apis[1])  # Check if google and apple connection are working, else throw exception
+    apis = googleAPISetup() , appleAPISetup()  # Checks credentials of user
+    # Check if google and apple connection are working, else throw exception
    # print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~` Testing Zone ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
     #Testing(apis[0], apis[1])
+    checked_apis = GoogleConCheck(apis[0]), AppleConCheck(apis[1])
     googlePrep(checked_apis[0])  # Connects to google and deletes all current events
     events = appleExtract(checked_apis[1])  # Connect to apple and extracts all upcoming events
     eventList = ApptoGo(events)  # Converts Google Json to Apple Json format
